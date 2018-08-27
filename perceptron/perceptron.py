@@ -22,7 +22,7 @@ class Perceptron(object):
         self.eta = eta
         self.n_iter = n_iter
         
-    def fit(self, X, Y):
+    def fit(self, X, y):
         """Fit training data.
         
         Parameters
@@ -39,11 +39,11 @@ class Perceptron(object):
         
         """
         self.w_ = np.zeros(1+X.shape[1])
-        self.erros = []
+        self.errors_ = []
         
         for _ in range(self.n_iter):
             errors = 0
-            for xi, target in Zip(X, y):
+            for xi, target in zip(X, y):
                 update = self.eta * (target - self.predict(xi))
                 self.w_[1:] += update * xi
                 self.w_[0] += update
