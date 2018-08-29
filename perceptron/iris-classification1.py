@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 
 from perceptron import Perceptron
+from plot_decision_regions import plot_decision_regions
 
 # read in iris data set 
 df = pd.read_csv('../iris-data.csv')
@@ -35,4 +36,10 @@ plt.xlabel('Epochs')
 plt.ylabel('Number of updates')
 
 plt.tight_layout()
+plt.show()
+
+plot_decision_regions(X, y, classifier=ppn)
+plt.xlabel('sepal length [cm]')
+plt.xlabel('petal length [cm]')
+plt.legend(loc='upper left')
 plt.show()
