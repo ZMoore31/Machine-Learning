@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 
 from adaline import AdalineGD
+from adalineSGD import AdalineSGD
 from plot_decision_regions import plot_decision_regions
 
 # read in iris data set 
@@ -39,8 +40,9 @@ X_std = np.copy(X)
 X_std[:, 0] = (X[:, 0] - X[:, 0].mean()) / X[:, 0].std()
 X_std[:, 1] = (X[:, 1] - X[:, 1].mean()) / X[:, 1].std()
 
-# fit adaline with standardized features
+# fit adaline with standardized features 
 # convergence is now successful with a learning rate of 0.01
+# this adaline implementation uses batch gradient descient
 ada = AdalineGD(n_iter=15, eta=0.01)
 ada.fit(X_std, y)
 
@@ -57,4 +59,28 @@ plt.xlabel('Epochs')
 plt.ylabel('Sum-squared-error')
 
 plt.tight_layout()
+plt.show()
+
+# fit adaline with standardized features 
+# convergence is now successful with a learning rate of 0.01
+# this adaline implementation uses stochastic gradient descient
+ada = AdalineSGD(n_iter=15, eta=0.01, random_state=1)
+ada.fit(X_std, y)
+
+plot_decision_regions(X_std, y, classifier=ada)
+plt.title('Adaline - Stochastic Gradient Descent')
+plt.xlabel('sepal length [standardized]')
+plt.ylabel('petal length [standardized]')
+plt.legend(loc='upper left')
+
+plt.tight_layout()
+
+plt.show()
+
+plt.plot(range(1, len(ada.cost_) + 1), ada.cost_, marker='o')
+plt.xlabel('Epochs')
+plt.ylabel('Average Cost')
+
+plt.tight_layout()
+
 plt.show()
